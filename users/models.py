@@ -1,3 +1,4 @@
+from enum import unique
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -11,11 +12,19 @@ class User(AbstractUser):
 	verified = models.BooleanField(default=False, null=True)
 	is_active = models.BooleanField(default=False, null=True)
 
+	def __str__(self):
+		return self.email
 
-# class Teacher(models.Model):
-# 	user = models.ForeignKey(User)
-# 	teacher_data = ...
 
+class Teacher(models.Model):
+	user = models.ForeignKey(User,on_delete=models.CASCADE)
+	name = models.TextField(default=None,null=False)
+	gender = models.TextField(default=None,null=True)
+	phone = models.CharField(default=None,null=False,max_length=10,unique=True)
+	department = models.TextField(default=None,null=False)
+
+	def __str__(self) :
+		return self.name
 
 # class Student(models.Model):
 # 	user = models.ForeignKey(User)
