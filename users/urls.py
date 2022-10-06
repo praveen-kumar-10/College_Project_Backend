@@ -8,4 +8,7 @@ urlpatterns = [
     path('o/token', TokenRefreshView.as_view()),
     path('signup', register),
     path('logout', TokenBlacklistView.as_view()),
+    path('signupteacher',signupteacher),
+    path('getteachers',get_teachers),
+    path('approve',handle_approve)
 ]
