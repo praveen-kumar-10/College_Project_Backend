@@ -10,5 +10,6 @@ urlpatterns = [
     path('logout', TokenBlacklistView.as_view()),
     path('signupteacher',signupteacher),
     path('getteachers',get_teachers),
-    path('approve',handle_approve)
+    path('approve',handle_approve),
+    path('get-users', get_users)
 ]

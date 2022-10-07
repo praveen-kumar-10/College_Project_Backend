@@ -8,6 +8,7 @@ from django.contrib.auth.models import auth
 from django.db import transaction
 from django.contrib.auth.hashers import check_password
 
+from .serializers import UserSerializer
 
 
 
@@ -107,6 +108,15 @@ def signupteacher(request):
 		print(e)
 		return Response({"success": "0", "message": "Something went wrong"}, status=400)
 
+# @csrf_exempt
+@api_view(['GET'])
+def get_users(request):
+	try:
+		users = User.objects.all()
+		serializer = UserSerializer(users, many=True)
+	except Exception as e:
+		return Response({"success":"0","message":"Something went wrong."}, status=403)
+	return Response({"success": "1", "message": "Get Users Fetched Successfully", "data": serializer.data}, status=200)
 
 @csrf_exempt
 @api_view(["GET"])
@@ -134,7 +144,6 @@ def get_teachers(request):
 @csrf_exempt
 @api_view(["POST"])
 def handle_approve(request):
-	print('hello')
 	id = request.data['id']
 	try:
 		teacher = Teacher.objects.all().filter(id=id)[0]
